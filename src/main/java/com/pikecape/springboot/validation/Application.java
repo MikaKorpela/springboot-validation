@@ -1,4 +1,4 @@
-package com.spring.apprentice.validation;
+package com.pikecape.springboot.validation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

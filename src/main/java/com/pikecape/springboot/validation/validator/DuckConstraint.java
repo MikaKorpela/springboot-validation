@@ -1,7 +1,7 @@
-package com.spring.apprentice.validation.validation;
+package com.pikecape.springboot.validation.validator;
 
-import com.spring.apprentice.validation.dto.DuckDTO;
-import com.spring.apprentice.validation.validation.DuckConstraint.DuckValidator;
+import com.pikecape.springboot.validation.model.Duck;
+import com.pikecape.springboot.validation.validator.DuckConstraint.DuckValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -27,18 +27,14 @@ public @interface DuckConstraint {
 
   Class<? extends Payload>[] payload() default {};
 
-  class DuckValidator implements ConstraintValidator<DuckConstraint, DuckDTO> {
+  class DuckValidator implements ConstraintValidator<DuckConstraint, Duck> {
 
     @Override
-    public boolean isValid(DuckDTO duckDTO, ConstraintValidatorContext context) {
+    public boolean isValid(Duck duck, ConstraintValidatorContext context) {
       List<String> errors = new ArrayList<>();
 
-      if (duckDTO.getBirthday().isBefore(LocalDate.now())) {
-        errors.add("Duck is too old");
-      }
-
-      if (duckDTO.getBirthday().isAfter(LocalDate.now())) {
-        errors.add("Duck is too young");
+      if (duck.getBirthday().isAfter(LocalDate.now())) {
+        errors.add("Duck cannot exists; birthday is in the future");
       }
 
       if (!errors.isEmpty()) {
